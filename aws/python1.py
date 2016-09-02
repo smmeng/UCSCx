@@ -57,39 +57,42 @@ while True:
 	
 print 'iFileList=', iFileList
 
-#Upload them to the new buckets
+#Upload them to the new buckets (one copy each bucket!)
 for bucketname in newBucketList:
 	for filename in iFileList:
 		bucket=s3.get_bucket(bucketname)
 		anothernewkey=bucket.new_key(filename)
 		anothernewkey.set_contents_from_filename(UPLOAD_PATH+filename)
 		anothernewkey.set_acl('public-read')
-	
-#get all objects in a bucket
-#change this bucketname to the name of one of your buckets
-bucketname01='sampdfs'
-bucketlist=s3.get_bucket(bucketname01)
-bucket=s3.get_bucket(bucketname01)
-for o in bucketlist:
-	print o
 
-#upload a file - for this example the terminal
-#used to run Python was opened in the same directory
-#the install-boto2.txt file is locate in –
-filename = "Class1.pdf"
-anothernewkey=bucket.new_key(filename)
-anothernewkey.set_contents_from_filename(UPLOAD_PATH+filename)
-anothernewkey.set_acl('public-read')
+#######################################
+# Get  all objects in the new buckets
+#######################################		
+for bucketname01 in newBucketList:
+	bucketlist=s3.get_bucket(bucketname01)
+	bucket=s3.get_bucket(bucketname01)
+	for obj in bucketlist:
+		print obj
 
-#Download S3 object contents and save to a file
-for o in bucketlist:
-	fn = str(o.key)
-	print o, " filename=", fn, fn[len(fn)-1]
-	if fn[len(fn)-1] is '/' and os.path.exists(fn)== False :
-		print "creating folder [", fn
-		os.mkdir(DOWNLOAD_PATH+fn)
-	elif fn[len(fn)-1] is '/':
-		continue
-	else:
-		o.get_contents_to_filename(DOWNLOAD_PATH+fn)
-		
+#######################################
+# Get all objects in the new buckets
+# to our downloads folder
+#######################################	
+for bucketname01 in newBucketList:
+	bucketlist=s3.get_bucket(bucketname01)
+	if os.path.exists(bucketname01)== False :
+			print "creating folder [", bucketname01
+			os.mkdir(DOWNLOAD_PATH+bucketname01)
+			
+	for obj in bucketlist:
+		fn = bucketname01 + "/" + str(obj.key)
+		print obj, " filename=", fn, fn[len(fn)-1]
+		if fn[len(fn)-1] is '/' and os.path.exists(fn)== False :
+			print "creating folder [", fn
+			os.mkdir(DOWNLOAD_PATH+ fn)
+		elif fn[len(fn)-1] is '/':
+			continue
+		else:
+			obj.get_contents_to_filename(DOWNLOAD_PATH+fn)
+			
+print "SUCCESS!"
