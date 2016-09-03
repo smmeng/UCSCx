@@ -31,7 +31,6 @@ ec2=boto.ec2.connect_to_region(REGION)
 app = ec2.create_security_group(VPC_GROUP_NAME, 'The application tier')
 sg = ec2.get_all_security_groups(filters={'group-name': [VPC_GROUP_NAME]})
 
-
 pprint (vars(sg[0]))
 sgGroupId =  str(sg[0].id)
 sgVPCId = str(sg[0].vpc_id)
@@ -46,7 +45,7 @@ group = ec2.get_all_security_groups(group_ids=[sgGroupId])[0]
 sn=vpccon.get_all_subnets(filters={'vpcId':[sgVPCId]})
 sn1=sn[0]
 key = ec2.get_all_key_pairs(keynames=[KEY_NAME])[0]
-newKey = ec2.create_key_pair('mynewkey')
+newKey = ec2.create_key_pair('mynewkey1')
 newKey.save("./")
 
 #
@@ -56,8 +55,21 @@ newKey.save("./")
 instance1 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
 pprint(vars(instance1))
 id1 = str(instance1.instances[0].id)
+time.sleep(1)
+print 'int1 [', id1 , '] created.'
 
-print 'int1 [', id , '] created.'
+# wait for initialization to complete
+while True:
+	status1 = ec2.get_all_instance_status(instance_ids=id1)
+	print 'status1=', status1
+	if len(status1)==0:
+		print "Wait for another 6 sec until the EC2 instance up......"
+		time.sleep(6)
+		continue
+
+print 'Shutting down int1 [', id , '] in 30 sec.'
+time.sleep(30)
+term1= ec2.terminate_instances(instance_ids=[str(id1)])
 
 instances= ec2.get_only_instances()
 
@@ -69,15 +81,7 @@ for instance in instances:
 		break
 
 print 'Found instance1 ', ec2Instance1, ' Waiting to run'
-while ec2Instance1.state != "running":
-	time.sleep(6)
-	print "Wait for another 6 sec ......"
-		
 
- 
-print 'Shutting down int1 [', id , '] in 30 sec.'
-#time.sleep(30)
-term1= ec2.terminate_instances(instance_ids=[str(id1)])
 
 #########
 instance2 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
