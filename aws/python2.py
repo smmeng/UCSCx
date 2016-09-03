@@ -24,12 +24,15 @@ UPLOAD_PATH = '/home/siming.meng/uploads/'
 DOWNLOAD_PATH = '/home/siming.meng/Downloads/'
 BUCKET_PREFIX = 'smmeng'
 
-VPC_GROUP_NAME = 'appserver'
+VPC_GROUP_NAME = 'python2'
+VPC_GROUP_DESCRIPTION = 'Security group for python homework2'
+
 ec2 = boto.connect_ec2()
 ec2=boto.ec2.connect_to_region(REGION)
 #create a new security group
-app = ec2.create_security_group(VPC_GROUP_NAME, 'The application tier')
+app = ec2.create_security_group(VPC_GROUP_NAME, VPC_GROUP_DESCRIPTION )
 sg = ec2.get_all_security_groups(filters={'group-name': [VPC_GROUP_NAME]})
+app.authorize('tcp','22', '22', "0.0.0.0/0")
 
 pprint (vars(sg[0]))
 sgGroupId =  str(sg[0].id)
@@ -66,22 +69,12 @@ while True:
 		print "Wait for another 6 sec until the EC2 instance up......"
 		time.sleep(6)
 		continue
+	break
 
 print 'Shutting down int1 [', id , '] in 30 sec.'
 time.sleep(30)
 term1= ec2.terminate_instances(instance_ids=[str(id1)])
 
-instances= ec2.get_only_instances()
-
-for instance in instances:
-	print instance.tags , " is ", instance.state, " id=", instance.id, ' id1=', id1
-	if id1 == str(instance.id):
-		print "Found id1", id1
-		ec2Instance1 = instance
-		break
-
-print 'Found instance1 ', ec2Instance1, ' Waiting to run'
 
 
 #########
-instance2 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
