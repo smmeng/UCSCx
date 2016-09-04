@@ -10,10 +10,12 @@ aws ec2 create-key-pair --key-name key-west1 > hw3.pem
 # 03) Create two Amazon Linux Micro instances in the us-west-1 region
 aws ec2 run-instances --image-id ami-31490d51 --count 2 --instance-type t2.micro  --security-groups homework3
 
+#
 # 04) Programmatically after both instances are launched – print out information about these two running instances
+#
 aws ec2 describe-instances --filter Name="instance.group-name",Values="homework3" --output json 
 
-
+#
 # 05) Next, Programmatically terminate both instances
 #
 #first parse and save the instance id to a text file
