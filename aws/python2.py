@@ -55,7 +55,7 @@ newKey.save("./")
 # Create two new instances
 #getAMI-ID from AWS Ec2 console in region, then we programmatically create the new EC2 instance with reservation# as a return
 #
-instance1 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
+instance1 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',count=2,security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
 pprint(vars(instance1))
 id1 = str(instance1.instances[0].id)
 time.sleep(1)
