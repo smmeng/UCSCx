@@ -1,0 +1,44 @@
+Create User:
+{ "account": {
+"userId":0,
+"firstName":"Camaron"; chrome://restclient/content/restclient.html#
+"lastName":"Diaz";
+"password":"mary" }
+}
+
+Create MovieReview:
+{ "movieReview": {
+	"movieReviewId":0,
+	"userId":4,
+	"movieId":9,
+	"reviewShort":"Suicide";
+	"reviewLong":"violence"
+	}
+}
+
+Search MovieTheater:
+http://localhost:8080/movies/rest/movieTheater/movieZipCode?zipCode=94040&miles=3&movie=audrey
+http://localhost:8080/movies/rest/movieTheater/searchByTheater?theater=view
+http://localhost:8080/movies/rest/movieTheater/searchByMovie?movie=hephen
+Create
+{ "movieTheater": {
+	"movieTheaterId":0,
+	"theaterId":18,
+	"movieId":9,
+	"playTime":935;
+	"seatsAvailable":60,
+	"price": 9.5
+	}
+}
+
+Place ticket order
+http://localhost:8080/movies/rest/ticketOrder/1
+http://localhost:8080/movies/rest/ticketOrder?userId=4
+create
+{ "ticketOrder": {
+	"ticketOrderId":0,
+	"movieTheaterId":1,
+	"userId":2,
+	"orderPrice": 9.5
+	}
+}
