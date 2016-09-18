@@ -48,14 +48,15 @@ group = ec2.get_all_security_groups(group_ids=[sgGroupId])[0]
 sn=vpccon.get_all_subnets(filters={'vpcId':[sgVPCId]})
 sn1=sn[0]
 key = ec2.get_all_key_pairs(keynames=[KEY_NAME])[0]
-newKey = ec2.create_key_pair('mynewkey1')
+newKeyname = 'mynewkey1'
+newKey = ec2.create_key_pair(newKeyname)
 newKey.save("./")
 
 #
 # Create two new instances
 #getAMI-ID from AWS Ec2 console in region, then we programmatically create the new EC2 instance with reservation# as a return
 #
-instance1 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',count=2,security_group_ids=[group.id],subnet_id=sn1.id, key_name=KEY_NAME)
+instance1 = ec2.run_instances('ami-31490d51', instance_type='t2.micro',security_group_ids=[group.id],subnet_id=sn1.id, key_name=newKeyname)
 pprint(vars(instance1))
 id1 = str(instance1.instances[0].id)
 time.sleep(1)
