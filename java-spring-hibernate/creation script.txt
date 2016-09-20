@@ -1,7 +1,7 @@
 Create User:
 { "account": {
 "userId":0,
-"firstName":"Camaron"; chrome://restclient/content/restclient.html#
+"firstName":"Camaron"; 
 "lastName":"Diaz";
 "password":"mary" }
 }
