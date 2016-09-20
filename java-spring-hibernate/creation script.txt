@@ -1,12 +1,39 @@
-Create User:
+### Create User:
 { "account": {
 "userId":0,
-"firstName":"Camaron"; 
-"lastName":"Diaz";
-"password":"mary" }
+"firstName":"Lucy"; 
+"lastName":"Liu";
+"password":"Angels" }
+}
+http://localhost:8080/movies/rest/account/2
+http://localhost:8080/movies/rest/account?name=tom
+
+### Create movies
+http://localhost:8080/movies/rest/movie
+http://localhost:8080/movies/rest/movie?name=star
+{ "movie": {
+"movieId":0,
+"movieTitle":"Star War"; 
+"movieDescription":"Fantasy"}
 }
 
-Create MovieReview:
+### Create theater
+{ "theater": {
+"theaterId":0,
+"address":"1 Broadway"; 
+"city":"New York";
+"state":"NY";
+"zipCode":"10006";
+"openHours":"0930"
+	}
+}
+http://localhost:8080/movies/rest/theater/5
+http://localhost:8080/movies/rest/theater?pattern=sunny
+http://localhost:8080/movies/rest/theater/distance?zipCode=94086&miles=5
+http://localhost:8080/movies/rest/theater/distance?zipCode=10013&miles=5
+
+
+### Create MovieReview:
 { "movieReview": {
 	"movieReviewId":0,
 	"userId":4,
@@ -15,8 +42,10 @@ Create MovieReview:
 	"reviewLong":"violence"
 	}
 }
+http://localhost:8080/movies/rest/movieReview/3
+http://localhost:8080/movies/rest/movieReview/search?pattern=oscar
 
-Search MovieTheater:
+#### Search MovieTheater:
 http://localhost:8080/movies/rest/movieTheater/movieZipCode?zipCode=94040&miles=3&movie=audrey
 http://localhost:8080/movies/rest/movieTheater/searchByTheater?theater=view
 http://localhost:8080/movies/rest/movieTheater/searchByMovie?movie=hephen
@@ -31,7 +60,7 @@ Create
 	}
 }
 
-Place ticket order
+### Search ticket order
 http://localhost:8080/movies/rest/ticketOrder/1
 http://localhost:8080/movies/rest/ticketOrder?userId=4
 create

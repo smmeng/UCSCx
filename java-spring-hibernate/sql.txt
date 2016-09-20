@@ -1,0 +1,17 @@
+# Movie Review
+SELECT rev.*, user.first_name, user.last_name, movie.movie_title, movie.movie_description 
+FROM  movie_review rev, movie, user
+WHERE rev.movie_Id = movie.movie_id AND rev.user_id = user.user_id
+ORDER BY user_id;
+
+# Movie Theater
+SELECT mt.*, theater.address, theater.zip_code, movie.movie_title, movie.movie_description 
+FROM  movie_theater mt, movie, theater
+WHERE mt.movie_Id = movie.movie_id AND mt.theater_id = theater.theater_id
+ORDER BY mt.movie_id,mt.theater_id,zip_code;
+
+# Ticket order
+SELECT tos.*, user.first_name, user.last_name,theater.address, theater.zip_code, movie.movie_title
+FROM  movie_theater mt, movie, theater, ticket_order tos, user
+WHERE mt.movie_Id = movie.movie_id AND mt.theater_id = theater.theater_id AND tos.user_id = user.user_id AND tos.movie_theater_id = mt.movie_theater_id
+ORDER BY user.last_name;
