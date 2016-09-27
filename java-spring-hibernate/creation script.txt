@@ -13,8 +13,8 @@ http://localhost:8080/movies/rest/movie
 http://localhost:8080/movies/rest/movie?name=star
 { "movie": {
 "movieId":0,
-"movieTitle":"Star War"; 
-"movieDescription":"Fantasy"}
+"movieTitle":"Mr. & Mrs. Smith"; 
+"movieDescription":"Starring Angelina Jolie, Brad Pitt"}
 }
 
 ### Create theater
