@@ -1,7 +1,7 @@
-wordcount/MR2WordCount$WordMapper.class
-wordcount/SparkWordCount$1.class
 wordcount/SparkWordCount$2.class
 wordcount/MR2WordCount$SumReducer.class
 wordcount/SparkWordCount$3.class
 wordcount/MR2WordCount.class
 wordcount/SparkWordCount.class
+wordcount/SparkWordCount$1.class
+wordcount/MR2WordCount$WordMapper.class
